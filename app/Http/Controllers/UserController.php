@@ -9,12 +9,14 @@ use Illuminate\Support\Facades\Auth;
 class UserController extends Controller
 {
     //Retorna la vista para el inicio de sesión.
-    function index(){
+    function index()
+    {
         return view('auth.login');
     }
 
     //Función que registra un nuevo usuario
-    function storage(Request $request){
+    function storage(Request $request)
+    {
 
         $request->validate([
             'username' => ['required', 'string', 'max:10', 'unique:users'],
@@ -23,33 +25,42 @@ class UserController extends Controller
 
         $user = User::create([
             'username' => $request->username,
-            'password' => bcrypt($request->password)]);
+            'password' => bcrypt($request->password)
+        ]);
 
         Auth::login($user);
         return redirect()->route('login');
     }
 
-    function showRegister(){
+    function showRegister()
+    {
         return view('auth.register');
     }
 
     public function login(Request $request)
     {
+        // Validación de entrada
         $request->validate([
-            'username' => 'required',
-            'password' => 'required|min:6',
+            'username' => 'required|string',
+            'password' => 'required', // Ejemplo de validación adicional
         ]);
 
-        $credentials = $request->only('email', 'password');
+        // Obtener credenciales
+        $credentials = $request->only('username', 'password');
 
+        // Intentar autenticar
         if (Auth::attempt($credentials)) {
+            // Regenerar sesión
             $request->session()->regenerate();
-            return redirect()->intended('');
+
+            // Redirigir al usuario a la página principal
+            return redirect()->intended('/');
         }
 
+        // Si la autenticación falla, redirigir de vuelta con un mensaje de error
         return back()->withErrors([
-            'email' => 'Las credenciales no coinciden con nuestros registros.',
-        ]);
+            'username' => 'Las credenciales no coinciden con nuestros registros.',
+        ])->withInput(); // Mantiene los datos ingresados para el caso de que el usuario quiera corregir el error
     }
 
     public function logout(Request $request)
