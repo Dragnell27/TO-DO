@@ -1,0 +1,16 @@
+.msg-alert{
+    position: fixed;
+    display: flex;
+    background-color: #fff;
+    top: 75px;
+    /* right: -400px; */
+    z-index: 1000;
+    box-shadow: 0 0 7px 0 #000;
+    border-radius: 5px;
+    max-width: 400px;
+    transition: right 0.6;
+}
+
+.msg-open{
+    right: 20px;
+}

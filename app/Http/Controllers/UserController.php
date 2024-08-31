@@ -17,9 +17,9 @@ class UserController extends Controller
     //Función que registra un nuevo usuario
     function storage(Request $request)
     {
-
+        //Validación de datos
         $request->validate([
-            'username' => ['required', 'string', 'max:10', 'unique:users'],
+            'username' => ['required', 'string', 'max:15', 'unique:users'],
             'password' => ['required', 'string', 'min:8'],
         ]);
 
@@ -32,11 +32,13 @@ class UserController extends Controller
         return redirect()->route('login');
     }
 
+    //Retorna la vista para el registro de un nuevo usuario.
     function showRegister()
     {
         return view('auth.register');
     }
 
+    //Función que realiza la autenticación de un usuario.
     public function login(Request $request)
     {
         // Validación de entrada
@@ -63,7 +65,9 @@ class UserController extends Controller
         ])->withInput(); // Mantiene los datos ingresados para el caso de que el usuario quiera corregir el error
     }
 
-    public function logout(Request $request)
+
+    //Cierre de sesión
+    public function logout()
     {
         Auth::logout();
         return redirect('/login');
