@@ -106,6 +106,7 @@ class TaskController extends Controller
 
     public function destroy($id)
     {
+        //Cambio el estado de la tarea a eliminado en la base de datos
         try {
             $task = Task::find($id);
         $task->status = 2;
