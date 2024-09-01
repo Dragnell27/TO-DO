@@ -6,7 +6,6 @@ Aplicación web para la gestión de Tareas.
 ### Requisitos
 - composer v2.7.8
 - PHP v8.2.*
-- Laravel v11.*
 
 ### Pasos de instalación
 1. Clona el repositorio: `git clone https://github.com/Dragnell27/TO-DO.git`.
@@ -18,6 +17,6 @@ Aplicación web para la gestión de Tareas.
 7. Creamos la ruta para el paquete de traducción a español con el comando. `mkdir vendor/laravel/framework/src/Illuminate/Translation/lang/es`.
 8. copiamos el paquete de traducción de español en la ruta creada en el paso anterior con el comando `cp -r resources/lang/es/ vendor/laravel/framework/src/Illuminate/Translation/lang/es`.
 9. Corremos la aplicación con el comando `php artisan serve` y debería arrojarnos `Server running on [http://127.0.0.1:8000]` donde la url dentro de los corchetes seria donde estará alojada nuestra aplicación.
-10. Por ultimo, pegamos la ruta donde nos dice que se ejecuta la aplicación en el navegador.
+10. Por ultimo, pegamos la url del proyecto en el navegador.
 
 
