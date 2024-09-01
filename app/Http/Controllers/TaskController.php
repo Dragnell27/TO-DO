@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 
 class TaskController extends Controller
 {
+    //Retorna la vista para la lista de tareas.
     public function index()
     {
         return view('index');
@@ -49,8 +50,13 @@ class TaskController extends Controller
     public function show($id)
     {
         try {
-            $tasks = Task::where('user_id', $id)->where('status', 1)->get();
+            //Extraigo las tareas para el usuario que inicio sesión en orden descendente
+            $tasks = Task::where('user_id', $id)
+            ->where('status', 1)
+            ->orderBy('id', 'desc')
+            ->get();
 
+            //Si no ocurre ningún error retorna la información obtenida
             return response()->json(
                 [
                     'status' => 'success',
@@ -71,6 +77,7 @@ class TaskController extends Controller
         }
     }
 
+    //Realiza la actualización de la tarea
     public function update(Request $request, string $id)
     {
         try {

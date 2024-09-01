@@ -1,4 +1,4 @@
-const endPoint = 'http://127.0.0.1:8000/'
+const endPoint = 'http://127.0.0.1:8000/';
 const data = document.getElementById('user-id');
 const form_tasks = document.getElementById('form-task');
 
@@ -7,7 +7,7 @@ const userId = data.dataset.id;
 //Selecciona todos los elementos con la clase 'no-edit'
 const task = document.querySelectorAll('.no-edit');
 
-//Cargo las tareas por usuario
+//Cargo las tareas del usuario
 uploadTasks();
 
 //Formulario para nuevas tareas
@@ -30,6 +30,7 @@ form_tasks.addEventListener('submit', (event) => {
         .then(response => response.json())
         .then(data => {
             task.value = '';
+            alertMsg(data.message, data.status); //Mensaje de alerta
             uploadTasks(); //Carga de nuevo todas la tareas.
         })
         .catch(error => console.error('Error:', error));
@@ -40,9 +41,10 @@ function editTask(button) {
     const btn = document.getElementById('btn' + button.dataset.id);
     const btn_edit = document.getElementById('btn-edit' + button.dataset.id);
 
-    btn.classList.toggle('d-none')
-    btn_edit.classList.toggle('d-none')
+    btn.classList.toggle('d-none');
+    btn_edit.classList.toggle('d-none');
     task.removeAttribute('disabled');
+    alertMsg('Se ha habilitado la edición de la tarea.', 'success');
 }
 
 function cancelEditTask(button) {
@@ -50,12 +52,14 @@ function cancelEditTask(button) {
     const btn = document.getElementById('btn' + button.dataset.id);
     const btn_edit = document.getElementById('btn-edit' + button.dataset.id);
 
-    btn.classList.toggle('d-none')
-    btn_edit.classList.toggle('d-none')
-    task.disabled = true
+    btn.classList.toggle('d-none');
+    btn_edit.classList.toggle('d-none');
+    task.disabled = true;
+    alertMsg('La edición de la tarea ha sido deshabilitada.', 'success');
+
 }
 
-//Función para cargar las tareas.
+//Función para cargar las tareas del usuario.
 function uploadTasks() {
     fetch(endPoint + 'index/' + userId, {
         method: 'get',
@@ -100,14 +104,14 @@ function deleteTask(task) {
     })
         .then(response => response.json())
         .then(data => {
+            alertMsg(data.message, data.status);
             uploadTasks();
         })
         .catch(error => console.error('Error:', error));
 }
 
 function updateTask(task) {
-    const task_input = document.getElementById('task' + task.dataset.id);
-    console.log('Te')
+    const task_input = document.getElementById('task' + task.dataset.id)
     fetch(endPoint + 'index/' + task.dataset.id, {
         method: 'PUT',
         headers: {
@@ -120,39 +124,25 @@ function updateTask(task) {
     })
         .then(response => response.json())
         .then(data => {
-            console.log(data);
+            alertMsg(data.message, data.status);
             uploadTasks();
         })
         .catch(error => console.error('Error:', error));
 }
 
-// function msgAlert(msg, process) {
-//     const containerMsg = document.getElementById('container-msg');
-//     let msg = ''
-//     if (process === 'success') {
-//         msg = `<div class="icon me-2">
-//         <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="34" height="34" viewBox="0 0 50 50"
-//             style="fill:#40C057;">
-//             <path
-//                 d="M 25 2 C 12.309534 2 2 12.309534 2 25 C 2 37.690466 12.309534 48 25 48 C 37.690466 48 48 37.690466 48 25 C 48 12.309534 37.690466 2 25 2 z M 25 4 C 36.609534 4 46 13.390466 46 25 C 46 36.609534 36.609534 46 25 46 C 13.390466 46 4 36.609534 4 25 C 4 13.390466 13.390466 4 25 4 z M 34.988281 14.988281 A 1.0001 1.0001 0 0 0 34.171875 15.439453 L 23.970703 30.476562 L 16.679688 23.710938 A 1.0001 1.0001 0 1 0 15.320312 25.177734 L 24.316406 33.525391 L 35.828125 16.560547 A 1.0001 1.0001 0 0 0 34.988281 14.988281 z">
-//             </path>
-//         </svg>
-//     </div>
-//     <div class="msg">
-//         ${msg}
-//     </div>`;
-//     } else {
-//         msg = `<div class="icon me-2">
-//         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check2-circle" viewBox="0 0 16 16">
-//   <path d="M2.5 8a5.5 5.5 0 0 1 8.25-4.764.5.5 0 0 0 .5-.866A6.5 6.5 0 1 0 14.5 8a.5.5 0 0 0-1 0 5.5 5.5 0 1 1-11 0"/>
-//   <path d="M15.354 3.354a.5.5 0 0 0-.708-.708L8 9.293 5.354 6.646a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0z"/>
-// </svg>
-//     </div>
-//     <div class="msg">
-//         ${msg}
-//     </div>`;
-//     }
-// }
+function alertMsg(msg, process) {
+    const alertMsg = document.getElementById('container-msg');
+    const classToAdd = process === 'success' ? 'msg-success-open' : 'msg-danger-open';
+    const classToRemove = process === 'success' ? 'msg-danger-open' : 'msg-success-open';
+
+    alertMsg.classList.add(classToAdd);
+    alertMsg.classList.remove(classToRemove);
+    alertMsg.innerHTML = msg;
+
+    setTimeout(() => {
+        alertMsg.classList.remove(classToAdd);
+    }, 2000);
+}
 
 
 

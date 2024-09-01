@@ -3,14 +3,26 @@
     display: flex;
     background-color: #fff;
     top: 75px;
-    /* right: -400px; */
+    right: -400px;
     z-index: 1000;
     box-shadow: 0 0 7px 0 #000;
     border-radius: 5px;
     max-width: 400px;
-    transition: right 0.6;
+    transition: right .3s;
 }
 
-.msg-open{
+.msg-success-open{
     right: 20px;
+    box-shadow: 0 0 7px #2f2
+}
+
+.msg-danger-open{
+    right: 20px;
+    box-shadow: 0 0 7px #f22
+}
+
+.scrollable-list {
+    max-height: 44vh;
+    overflow-y: auto;
+    overflow-X: hidden;
 }

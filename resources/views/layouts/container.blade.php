@@ -19,7 +19,7 @@
     @include('components.header')
     @include('components.alert')
 
-    <div class="mt-5 mb-5">
+    <div class="mt-2 mb-5 p-2">
         @yield('main')
     </div>
 

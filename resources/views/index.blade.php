@@ -2,7 +2,7 @@
 
 
 @section('main')
-    <div class="container mt-2">
+    <div class="container">
         <h2 class="text-center">Tareas</h2>
         <div class="mt-2 mb-3">
             <form id="form-task">
@@ -13,7 +13,7 @@
                 </div>
             </form>
         </div>
-        <div class="border-top" >
+        <div class="border-top scrollable-list">
             <div class="list-group mt-3" id="list-task">
             </div>
         </div>
