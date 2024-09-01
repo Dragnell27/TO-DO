@@ -52,7 +52,7 @@ class TaskController extends Controller
         try {
             //Extraigo las tareas para el usuario que inicio sesión en orden descendente
             $tasks = Task::where('user_id', $id)
-            ->where('status', 1)
+            ->where('status','!=', 3)
             ->orderBy('id', 'desc')
             ->get();
 
@@ -109,8 +109,8 @@ class TaskController extends Controller
         //Cambio el estado de la tarea a eliminado en la base de datos
         try {
             $task = Task::find($id);
-        $task->status = 2;
-        $task->save();
+            $task->status = 3;
+            $task->save();
 
         return response()->json(
             [
@@ -124,6 +124,41 @@ class TaskController extends Controller
                 [
                     'status' => 'error',
                     'message' => 'Ocurrió un error al eliminar la tarea.',
+                    'error' => $e->getMessage(),
+                ],
+                500
+            );
+        }
+    }
+
+    //Realiza la actualización de pendiente y completado de las tareas
+    public function checkTask(string $id)
+    {
+        try {
+            $task = Task::find($id);
+
+            //Dependiendo del estado que este actualmente la tarea se cambia a pendiente o completada.
+            $newStatus = $task->status == 1 ? 2:1;
+
+            //Genero el mensaje según el estado de la tarea. 1 = pendiente, 2 = completada.
+            $msg = $task->status == 1 ? 'Tarea marcada como completada' : 'Tarea marcada como pendiente.';
+
+            //Asigno el nuevo estado y guardo la tarea.
+            $task->status = $newStatus;
+            $task->save();
+
+            return response()->json(
+                [
+                    'status' => 'success',
+                    'message' => $msg,
+                ],
+                200
+            );
+        } catch (\Exception $e) {
+            return response()->json(
+                [
+                    'status' => 'error',
+                    'message' => 'Ocurrió un error al actualizar la tarea.',
                     'error' => $e->getMessage(),
                 ],
                 500

@@ -1,6 +1,5 @@
 .msg-alert{
     position: fixed;
-    display: flex;
     background-color: #fff;
     top: 75px;
     right: -400px;
@@ -25,4 +24,16 @@
     max-height: 44vh;
     overflow-y: auto;
     overflow-X: hidden;
+}
+
+.complete{
+    color: #2f2;
+}
+
+.check{
+    cursor: pointer;
+}
+
+.check:hover{
+    color: #2f2;
 }

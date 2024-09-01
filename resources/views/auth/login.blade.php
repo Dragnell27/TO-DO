@@ -8,7 +8,7 @@
                 <form method="POST" action="{{ route('login') }}" class="col-md-8">
                     @csrf
                     <div class="col-12">
-                        <label for="username" class="">Nombre de usuario</label>
+                        <label for="username" class="mb-2">Nombre de usuario</label>
                         <input id="username" type="text" class="form-control @error('username') is-invalid @enderror"
                             name="username" value="{{ old('username') }}" required autocomplete="username" autofocus>
                         @error('username')

@@ -23,13 +23,13 @@ class UserController extends Controller
             'password' => ['required', 'string', 'min:8'],
         ]);
 
-        $user = User::create([
-            'username' => $request->username,
-            'password' => bcrypt($request->password)
-        ]);
+        $user = new User();
+        $user->username = $request->username;
+        $user->password = bcrypt($request->password);
+        $user->save();
 
         Auth::login($user);
-        return redirect()->route('login');
+        return redirect('/index');
     }
 
     //Retorna la vista para el registro de un nuevo usuario.

@@ -20,6 +20,7 @@
     </div>
 @endsection
 
+{{-- El archivo se encuentra en la carpeta public --}}
 @section('scripts')
     <script src="{{asset('js/index.js')}}"></script>
 @endsection
