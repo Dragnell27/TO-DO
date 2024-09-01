@@ -10,7 +10,7 @@ Aplicación web para la gestión de Tareas.
 
 ### Pasos de instalación
 1. Clona el repositorio: `git clone https://github.com/Dragnell27/TO-DO.git`.
-2. Importamos la base de datos(BD) que esta en la ruta `TO-DO/todo.sql`.
+2. Importamos la base de datos(BD) que esta en la ruta `TO-DO/database/todo.sql`.
 3. En la carpeta principal `TO-DO/` ejecutamos el comando `composer install` para instalar las dependencia de composer.
 4. Creamos el archivo .env clonando el .env.example con el comando: `cp .env.example .env`.
 5. Generamos la key con el comando: `php artisan key:generate`.
